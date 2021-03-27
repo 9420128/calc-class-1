@@ -1,0 +1,81 @@
+npm run serve
+
+npm run build
+
+firebase deploy
+
+https://ru.parceljs.org/
+
+https://www.youtube.com/watch?v=0ViiJ8qTCFM&t=5943s
+
+document.querySelector('#d')
+document.getElementById('d')
+
+el.textContent
+el.innerHTML
+el.insertAdjacentHTML('afterbegin', html)
+                       'afterbegin': сразу после открывающего тега  el (перед первым потомком).
+                       'beforebegin': до самого element (до открывающего тега)
+                       'beforeend': сразу перед закрывающим тегом element
+                       'afterend': после element (после закрывающего тега)
+
+el.remove() : Удалииз DOM
+
+el.children – только дочерние узлы-элементы, то есть соответствующие тегам.
+el.firstElementChild
+el.lastElementChild – соответственно, первый и последний дети-элементы.
+el.previousElementSibling, nextElementSibling – соседи-элементы.
+el.parentElement – родитель-элемент.
+
+isNaN(el)
+
+Math.floor(el) // округление
+
+el.toFixed(2)
+
+e.target.classList.add
+                  .contains  // проверка наличия класса
+                  .toggle
+
+el.checked  //checkbox
+
+el.tagName  // название тега
+e.target.classList.contains('tableClose') // наличие класса
+
+return [
+      block('text'),
+      block('title')
+    ].join('')
+
+const newBlock = type === 'text'
+      ? new TextBlock(value, {styles})
+      : new TitleBlock(value, {styles})
+
+$go.setAttribute('disabled', 'true') // button
+
+arr.push(...items) – добавляет элементы в конец,
+arr.pop() – извлекает элемент из конца,
+arr.shift() – извлекает элемент из начала,
+arr.unshift(...items) – добавляет элементы в начало
+arr.splice(str) - удаляет элемент из массива
+
+JSON.parse(text) // разбирает строку
+JSON.stringify() преобразует значение JavaScript в строку JSON
+
+arr = arr.filter(function (x) {
+    return x !== undefined && x !== null         // убирает из массива пустые значения
+})
+
+elem.onclick = function
+     onchange
+
+element.addEventListener('click', function);
+                          change
+
+input.oninput = function() {}  // Событие input срабатывает тут же при изменении значения текстового элемента и поддерживается всеми браузерами, кроме IE8
+
+const tabs = $calc.getElementsByTagName('li')
+;[...tabs].forEach((tab) => tab.addEventListener('click', tabClick))
+
+str.split('-') // разбирает строку в массив
+str.join(' ') // убирает символы межу словами

@@ -1,0 +1,165 @@
+@import 'base';
+
+.fb-table__wrap {
+    padding: 0 1em;
+    background-color: white;
+    border-radius: $radius;
+    position: relative;
+
+    span {
+        position: relative;
+    }
+}
+
+.fb-table__h{
+    font-size: 1rem;
+}
+
+.fb-table tr td,
+.fb-table tr th,
+.fz-m {  
+    font-size: 0.8rem;
+}
+
+.fb-table__p, .fb-table__bg-p {
+    margin: 1em 0;
+    padding: 0;
+    font-size: 0.8rem;
+}
+
+.fb-table__section {
+    padding: 1em 0;
+}
+
+.fb-table__p {
+    display: flex;
+    border-bottom: 1px solid $border_1;
+
+    span {
+        padding-left: 0.6em;
+        display: inline-block;
+        height: 1.4em;
+        width: 100%;
+    }
+}
+.fb-table__wrap span:hover,
+.fb-table__wrap span:focus,
+.tableEl:hover,
+.tableEl:focus {
+    background-color: #f5f5dc;
+    cursor: copy;
+}
+
+.fb-table__bg {
+    display: block;
+    margin: 2em 0;
+    border: 1px solid $border_1;
+    padding: 0.5em;
+
+    p {
+        margin: 0;
+    }
+}
+
+.tableClose,
+.catalog_3 {
+    height: 1em;
+    width: 0.625em;
+    display: block;
+    background: url(../assets/times.svg) no-repeat;
+    cursor: pointer;
+}
+.tableClose:hover,
+.catalog_3:hover {
+    opacity: 0.8;
+}
+
+.tableInput,
+.tableText {
+    margin: 0;
+    padding: 0;
+    border: none;
+    height: 1em;
+}
+
+.overlow {
+    overflow: auto;
+
+    .fb-table{
+        min-width: 580px;
+    }
+}
+
+.fb-table {
+    width: 100%;
+    margin-bottom: 1rem;
+    vertical-align: top;
+    border-color: $border_1;
+    caption-side: bottom;
+    width: 100%;
+    background-color: white;
+    border-collapse: collapse;
+
+    td:nth-child(2){
+        width: 40%
+    }
+    
+    td:nth-child(3) {width: 50%}
+
+    caption {
+        text-align: left;
+    }
+
+    thead {
+        vertical-align: bottom;
+    }
+}
+
+.fb-table.catalog {
+
+    tr:last-child {
+        border-bottom-color: white;
+    }
+
+    td {
+        padding: 0.5em 1em;
+    }
+
+    .catalog_1 {
+        cursor: pointer;
+    }
+
+    tr:hover {
+        background-color: rgb(243, 243, 243);
+    }
+}
+
+.fb-table > :not(caption) > * > * {
+    padding: 0.5rem 0.5rem;
+    border-bottom-width: 1px;
+}
+
+// .fb-table > :not(:last-child) > :last-child > *,
+.fb-table tr:last-child {
+    border-bottom-color: #333;
+}
+
+.fb-table td,
+.fb-table th {
+    position: relative;
+}
+
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+}
+
+.tableRow td:nth-child(4) {
+    text-align: right;
+}

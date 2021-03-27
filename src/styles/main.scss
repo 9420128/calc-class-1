@@ -1,0 +1,418 @@
+@import 'base';
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    background-color: $bg_0;
+    position: relative;
+    font-family: -apple-system, BlinkMacSystemFont, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.5;
+    box-sizing: border-box;
+    color: #333;
+}
+
+.container {
+    display: flex;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin: 0;
+    display: flow-root;
+    box-sizing: content-box;
+}
+
+.logo__row {
+    margin-top: 40px;
+    justify-content: space-between;
+}
+
+.logo{
+    color: #1c3c50;
+}
+
+#menu {
+    opacity: .6;
+    background: url(../assets/bars.svg) no-repeat;
+    height: 35px;
+}
+
+#menu:hover{
+    opacity: 1;
+}
+
+.grid.col-xm{
+    flex-direction: column;
+}
+
+.grid {
+    margin-left: -2em;
+    display: flex;
+}
+
+.grid > * {
+    padding-left: 2em;
+    margin: 0;
+}
+
+.col {
+    width: 100%;
+
+    h2 {
+        margin: 0;
+        font-size: 1rem;
+        padding-left: .8rem;
+        padding-bottom: 5px;
+        margin-top: 1em;
+    }
+}
+
+.body {
+    padding: 2em 1em;
+    min-height: 180px;
+    background-color: $bg_1;
+    clear: both;
+}
+
+.wrap {
+    margin-top: $grid;
+}
+
+.header {
+    background-color: $bg_2;
+    border-top-left-radius: $radius;
+    border-top-right-radius: $radius;
+}
+
+.header__ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.header__ul li {
+    color: white;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    padding: 0.87rem;
+}
+
+.header__ul li:first-child {
+    border-top-left-radius: $radius;
+}
+.header__ul li:last-child {
+    border-top-right-radius: $radius;
+}
+
+.header__ul li:hover,
+.header__ul li.active {
+    background-color: $bg_1;
+}
+
+// ------------------------------------------------- slid ----------------------------------------
+
+.slid {
+    position: absolute;
+    right: 0;
+    height: 4em;
+    width: 200px;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: white;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+
+    li {
+        padding-right: 1em;
+        padding-left: 2em;
+        cursor: pointer;
+        height: 1.5em;
+        width: 1.5em;
+        position: relative;
+    }
+}
+
+.slid:hover,
+.slid:focus {
+    opacity: 1;
+    transition: 0.5s;
+}
+
+.tableNavR {
+    background: url(../assets/delit.svg) no-repeat;
+}
+
+.tableNavP {
+    background: url(../assets/print.svg) no-repeat;
+}
+
+.tableNavS {
+    background: url(../assets/save.svg) no-repeat;
+}
+
+// ------------------------------------------------- footer ----------------------------------------
+
+.footer {
+    background-color: $bg_3;
+    border-bottom-left-radius: $radius;
+    border-bottom-right-radius: $radius;
+}
+
+.footer__grid,
+.header__ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.footer__grid {
+    height: 3rem;
+}
+.footer__col {
+    height: 100%;
+    position: relative;
+
+    .check {
+        position: absolute;
+        top: 12px;
+        left: -2em;
+        color: transparent;
+        font-size: 0.8em;
+    }
+}
+
+.footer__col .grid {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.footer__col button {
+    padding: 0 1.5em;
+    color: white;
+    height: 100%;
+    background-color: $bg_4;
+    border-bottom-right-radius: $radius;
+    text-align: center;
+}
+
+.footer__col button:hover {
+    background-color: $bg_5;
+}
+
+.footer__desc,
+.header__ul > li {
+    font-size: 0.8em;
+}
+
+// ------------------------------------------------- form ----------------------------------------
+
+label {
+    display: block;
+    margin-top: -0.6em;
+    font-size: 0.6em;
+    color: white;
+}
+
+select,
+input {
+    width: 100%;
+    height: 3em;
+    border: 2px solid $bg_2;
+    box-sizing: border-box;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: white;
+    padding: 0.6em 1.4em 0.5em 0.8em;
+    font-size: 0.8em;
+}
+
+select:disabled,
+input:disabled {
+    background-color: $bg_2;
+}
+
+select {
+    margin-bottom: 2em;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat, repeat;
+    background-position: right 0.7em top 50%, 0 0;
+    background-size: 0.65em auto, 100%;
+}
+
+select::-ms-expand {
+    display: none;
+}
+select:hover,
+select:focus,
+input:focus,
+textarea,
+button {
+    border: 2px solid $bg_6;
+    color: #222;
+    outline: none;
+}
+select option {
+    font-weight: normal;
+}
+*[dir='rtl'] select,
+:root:lang(ar) select,
+:root:lang(iw) select {
+    background-position: left 0.7em top 50%, 0 0;
+    padding: 0.6em 0.8em 0.5em 1.4em;
+}
+
+button {
+    appearance: none;
+    cursor: pointer;
+    border: none;
+    background-color: inherit;
+    padding: 0;
+    margin: 0;
+}
+
+// ------------------------------------------------- icon ----------------------------------------
+
+svg:not(:root).svg-inline--fa {
+    overflow: visible;
+}
+
+.svg-inline--fa {
+    display: inline-block;
+    font-size: inherit;
+    height: 1em;
+    overflow: visible;
+    vertical-align: -0.125em;
+}
+
+.svg-inline--fa .fa-primary {
+    fill: var(--fa-primary-color, currentColor);
+    opacity: 1;
+    opacity: var(--fa-primary-opacity, 1);
+}
+.fa-w-14 {
+    width: 1.4em;
+}
+
+.fa-w-16{
+    font-size: 1.6em;
+}
+
+.svg-inline--fa.fa-w-10 {
+    width: 0.625em;
+}
+
+.fa-2x {
+    font-size: 2em;
+}
+
+#print_frame {
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.p>b, p>span, h3>span {
+    font-size: 1em;
+}
+
+// ------------------------------------------------- fb-modal ----------------------------------------
+
+
+.fb-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.fb-modal__row{
+    background-color: $bg_1;
+    display: flex;
+    align-items: center;
+}
+
+.fb-modal__col{
+    text-align: center;
+    width: 3em;
+}
+
+.fb-modal textarea {
+    border: 1px solid $border_1;
+    overflow: hidden;
+    height: 2.3em;
+    padding: 0.6em 1em;
+    // margin: 8px;
+}
+.fb-modal button {
+    color: white;
+    background: url(../assets/share.svg) no-repeat;
+    width: 24px;
+    height: 1.5em;
+}
+
+
+
+.fb-footer {
+    padding: $grid 0;
+
+    .fb-footer__row{
+        background-color: $bg_4;
+    border-radius: $radius;
+    }
+    
+
+    .fb-footer__text{
+        color: white;
+        text-align: center;
+        padding: 1em;
+    }
+}
+
+// ------------------------------------------------- notic ----------------------------------------
+.notic{
+    position: fixed;
+    left: 50%;
+    width: 370px;
+    margin-left: -135px;
+    z-index: 2;
+    top: 10px;
+    box-sizing: border-box
+}
+
+.notic__block{
+    margin-top: -50px;
+    opacity: 0;
+    position: relative;
+    padding: 1em;
+    background-color: rgba(13, 37, 255, 0.685);
+    color: white;
+    border-radius: $radius;
+    display: block;
+    transition: .2s;
+}
+
+.notic__block.open{
+    margin-top: 0;
+    opacity: 1;
+}
+
+.notic__icon{
+    position: absolute;
+    background: url(../assets/check.svg) no-repeat;
+    right: 1em;
+    top: 1.2em;
+    width: 1em;
+    height: 1em;
+}
+
+
+@import './table.scss';
+@import './media.scss';
