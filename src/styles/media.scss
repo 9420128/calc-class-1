@@ -25,7 +25,6 @@ $media_XX: 1240px;
 
 // ---------------------------------------- 900
 @media (min-width: $media_XM) {
-    
     form.wrap {
         display: flex;
     }
@@ -42,7 +41,6 @@ $media_XX: 1240px;
         //     margin-top: 0;
         // }
     }
-
 }
 
 // ---------------------------------------- 1024
@@ -63,7 +61,7 @@ $media_XX: 1240px;
         padding-right: $grid;
     }
 
-    .grid.col-xm{
+    .grid.col-xm {
         flex-direction: row;
     }
 
@@ -72,11 +70,11 @@ $media_XX: 1240px;
         width: 100%;
     }
 
-    .container>.grid{
+    .container > .grid {
         margin-left: -40px;
     }
 
-    .container>.grid > * {
+    .container > .grid > * {
         padding-left: $grid;
         box-sizing: border-box;
     }
@@ -97,37 +95,33 @@ $media_XX: 1240px;
 
 // ---------------------------------------- 375
 @media (max-width: $media_XS) {
-
-    .logo__row{padding: 0 1em;}
-    .fb-table__wrap{
+    .logo__row {
+        padding: 0 1em;
+    }
+    .fb-table__wrap {
         padding-top: 35px;
     }
     .hidden-xs {
         display: none;
     }
 
-    #calc{
+    #calc {
         select,
-        input{
+        input {
             font-size: 1rem;
         }
     }
 
-    // #deck_6 .fb-modal,
-    // #deck_5 .fb-modal{
-    //     left: -160px;
-    // }
-
-    .slid{
+    .slid {
         opacity: 1;
         top: 5px;
 
-        li{
+        li {
             padding-right: 0;
         }
     }
 
-    .fb-modal{
+    .fb-modal {
         position: fixed;
         top: 0;
         left: 0;
@@ -135,35 +129,33 @@ $media_XX: 1240px;
         bottom: 0;
         background-color: rgb(0 0 0 / 49%);
 
-        textarea{
+        textarea {
             font-size: 1rem;
         }
-
-       
     }
 
-    .fb-modal__row{
+    .fb-modal__row {
         margin-top: 85%;
         margin-left: 1.5em;
         margin-right: 1.5em;
-
     }
 
-    .fb-modal__col{
-         width: 4em;
-        
+    .fb-modal__col {
+        width: 4em;
     }
 
-    .notic{
-        left: .5em;
-        right: .5em;
+    .notic {
+        left: 0.5em;
+        right: 0.5em;
         margin-left: 0;
         width: auto;
     }
 
-    // h3.fb-table__h,
-    // .fb-table__bg p,
-    // .fb-table__section{
-    //     font-size: 12px;
-    // }
+    .grid {
+        margin-left: -1rem;
+    }
+
+    .grid > * {
+        padding-left: 1rem;
+    }
 }

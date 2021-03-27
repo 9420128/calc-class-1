@@ -2,6 +2,9 @@ npm run serve
 
 npm run build
 
+npm install -g firebase-tools
+firebase login
+  Set-ExecutionPolicy RemoteSigned // командная строка компьютера
 firebase deploy
 
 https://ru.parceljs.org/
