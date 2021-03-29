@@ -1,11 +1,4 @@
-export function KEY() {
-    return ['fspb-options-', 'fspb-catalog', 'fspb-zakaz-']
-}
-
-//////////////////////
-const $flag = document.querySelector('.flag'),
-    $noticBlock = document.querySelector('.notic__block'),
-    $noticText = document.querySelector('.notic__text')
+import { ADMIN } from './admin'
 
 export function selectVal(el) {
     let thisElem = el.options,
@@ -74,25 +67,31 @@ export function time(el) {
 
 export function tableModal(el, data) {
     // data = table, save, info
+    let type = el.dataset.type ? el.dataset.type : 'text'
+
     let text = data != 'save' ? el.textContent : ''
-    let html = `<div class="tableEdit fb-modal">
+    let html = `<form class="tableEdit fb-modal">
                         <div class="fb-modal__row">
-                            <textarea class="tableText" cols="30">${text}</textarea>
+                            <input class="tableText" type="${type}" value="${text}" onfocus="this.select()">
                             <div class="fb-modal__col">
-                                <button data-in="${data}" class="tableTextSave">
+                                <button data-in="${data}" class="tableTextSave" type="submit">
                                 </button>
                             </div>
                         </div>
-                    </div>`
+                    </form>`
+
+    // <textarea class="tableText" cols="30">${text}</textarea>
     el.insertAdjacentHTML('beforeend', html)
 
     const cursor = document.querySelector('.tableText')
     cursor.focus()
-    cursor.selectionStart = cursor.value.length
+
+    if (type === 'text') cursor.selectionStart = cursor.value.length
+
+    // if (el.dataset.type) cursor.setAttribute('type', el.dataset.type)
 }
 
 export function storageOut(key) {
-
     let instner = localStorage.length
 
     if (instner > 0) {
@@ -113,18 +112,24 @@ export function trBuild(arr, el) {
 
     arr.forEach((el, i) => {
         html += `<tr class="tableRow">
-                <td class="tableEl" data-el="num" nowrap data-id="${i}">${i + 1
-            }</td>
-                <td class="tableEl" data-el="text" data-id="${i}">${el.text
-            }</td>
-                <td class="tableEl" data-el="option" data-id="${i}">${el.option
-            }</td>
-                <td class="tableEl" data-el="s" data-id="${i}" nowrap>${el.s
-            }</td>
-                <td class="tableEl" data-el="i" data-id="${i}" nowrap>${el.i
-            }</td>
-                <td class="tableEl" data-el="p" data-id="${i}" nowrap>${el.p
-            }</td>
+                <td class="tableEl" data-el="num" nowrap data-id="${i}" data-type="number">${
+            i + 1
+        }</td>
+                <td class="tableEl" data-el="text" data-id="${i}">${
+            el.text
+        }</td>
+                <td class="tableEl" data-el="option" data-id="${i}">${
+            el.option
+        }</td>
+                <td class="tableEl" data-el="s" data-id="${i}" data-type="number" nowrap>${
+            el.s
+        }</td>
+                <td class="tableEl" data-el="i" data-id="${i}" nowrap>${
+            el.i
+        }</td>
+                <td class="tableEl" data-el="p" data-id="${i}" data-type="number" nowrap>${
+            el.p
+        }</td>
                 <td><i class="tableClose" data-num="${i + 1}"></i></td>
             </tr>`
     })
@@ -134,7 +139,7 @@ export function trBuild(arr, el) {
 
 // Построение таблицы сохраненных заказов
 export function catalogBuild() {
-    const arr = storageOut(KEY()[1]),
+    const arr = storageOut(ADMIN.KEY[1]),
         $element = document.querySelector('#catalog')
 
     let html = '',
@@ -174,6 +179,7 @@ export function catalogBuild() {
 // }
 
 export function flagHidden() {
+    const $flag = document.querySelector('.flag')
     const element = document.querySelectorAll('#catalog tr')
 
     if (element.length === 0) $flag.classList.add('hidden')
@@ -181,9 +187,10 @@ export function flagHidden() {
 }
 
 export function noticBuild(message) {
+    const $noticBlock = document.querySelector('.notic__block'),
+        $noticText = document.querySelector('.notic__text')
 
     $noticBlock.classList.add('open')
     $noticText.textContent = message
-    setTimeout(() => $noticBlock.classList.remove('open'), 1000);
-
+    setTimeout(() => $noticBlock.classList.remove('open'), 1000)
 }

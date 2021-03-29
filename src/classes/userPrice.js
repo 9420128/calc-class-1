@@ -1,4 +1,5 @@
-import { selectVal, KEY, storageOut, trBuild, catalogBuild } from '../function'
+import { selectVal, storageOut, trBuild, catalogBuild } from '../function'
+import { ADMIN } from '../admin'
 
 export class UserPrice {
     constructor() {
@@ -32,12 +33,11 @@ export class UserPrice {
         else if (f == 'z') sum = 1
         else if (f == 'k') {
             let s = w * h
-            sum = (Math.ceil(s / 0.5) * 0.5)
+            sum = Math.ceil(s / 0.5) * 0.5
         }
 
         return sum
     }
-
 
     func_S() {
         let w = !this.$w.disabled ? this.$w.value / 1000 : 0
@@ -52,7 +52,6 @@ export class UserPrice {
             izmU = this.func_Formula(fU, w, h)
 
         if (isNaN(w * h)) return
-
 
         this.$deck_2.innerText = izm.toFixed()
 
@@ -70,7 +69,6 @@ export class UserPrice {
         this.$deck_3.dataset.izmU = izmU.toFixed()
 
         this.$deck_2_2.innerText = i
-
     }
 
     func_Table() {
@@ -227,8 +225,8 @@ export class UserPrice {
     }
 
     // Добовление информации
-    func_tableSaveInfo(el) {
-        const val = document.querySelector('.tableText').value,
+    func_tableSaveInfo(el, tableText) {
+        const val = document.querySelector(tableText).value,
             span = el.parentElement.parentElement.parentElement.parentElement
 
         span.textContent = val
@@ -238,7 +236,7 @@ export class UserPrice {
     func_tableSaveLocal(el) {
         const val = document.querySelector('.tableText').value
 
-        let data = storageOut(KEY()[1]),
+        let data = storageOut(ADMIN.KEY[1]),
             arr = []
 
         if (!val) return
@@ -262,20 +260,19 @@ export class UserPrice {
             })
 
             // Если одинаковый ключ, удаляем старый ключ и таблицу
-            if (typeof inx === "number") {
-
+            if (typeof inx === 'number') {
                 data.splice(inx, 1)
-                localStorage.removeItem(KEY()[2] + val)
+                localStorage.removeItem(ADMIN.KEY[2] + val)
             }
 
             data.push(info)
 
-            localStorage.setItem(KEY()[1], JSON.stringify(data))
-            localStorage.setItem(KEY()[2] + val, JSON.stringify(this.arr))
+            localStorage.setItem(ADMIN.KEY[1], JSON.stringify(data))
+            localStorage.setItem(ADMIN.KEY[2] + val, JSON.stringify(this.arr))
         } else {
             arr.push(info)
-            localStorage.setItem(KEY()[1], JSON.stringify(arr))
-            localStorage.setItem(KEY()[2] + val, JSON.stringify(this.arr))
+            localStorage.setItem(ADMIN.KEY[1], JSON.stringify(arr))
+            localStorage.setItem(ADMIN.KEY[2] + val, JSON.stringify(this.arr))
         }
 
         catalogBuild()
@@ -290,7 +287,7 @@ export class UserPrice {
             adres = t.dataset.adres,
             isp = t.dataset.isp,
             user = t.dataset.user,
-            arr = storageOut(KEY()[2] + key)
+            arr = storageOut(ADMIN.KEY[2] + key)
 
         this.arr = arr
 
@@ -310,7 +307,7 @@ export class UserPrice {
     func_tableStorageRemove(t) {
         const val = t.dataset.val
 
-        let keyArr = storageOut(KEY()[1]),
+        let keyArr = storageOut(ADMIN.KEY[1]),
             numRemove,
             arr = []
 
@@ -322,10 +319,10 @@ export class UserPrice {
 
         arr.push(keyArr)
 
-        localStorage.removeItem(KEY()[1])
-        localStorage.setItem(KEY()[1], JSON.stringify(keyArr))
+        localStorage.removeItem(ADMIN.KEY[1])
+        localStorage.setItem(ADMIN.KEY[1], JSON.stringify(keyArr))
 
-        localStorage.removeItem(KEY()[2] + val)
+        localStorage.removeItem(ADMIN.KEY[2] + val)
         t.parentElement.parentElement.remove()
     }
 }

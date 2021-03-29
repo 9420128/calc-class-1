@@ -1,20 +1,17 @@
 import 'babel-polyfill'
 import { ADMIN } from './admin'
-import { KEY, catalogBuild } from './function'
 
 export async function startRender(el, list, col) {
     let googleMainUrl = ADMIN.googleURL.before + list + ADMIN.googleURL.after
 
-    let response = await fetch(googleMainUrl);
+    let response = await fetch(googleMainUrl)
     if (response.ok) {
         let data = await response.json(),
             entry = data.feed.entry
 
         startRenderOptions(el, list, col, entry)
-
-
     } else {
-        alert('error', response.status);
+        alert('error', response.status)
     }
 }
 
@@ -23,27 +20,22 @@ function startRenderOptions(el, list, col, entry) {
 
     let html = '',
         arr = [],
-        key = KEY()[0] + list
+        key = ADMIN.KEY[0] + list
 
     if (list == 1) {
-
         for (let i = col; i < entry.length; i += col) {
-
             let obj = {}
             obj.val = entry[i].content.$t
             obj.text = entry[i + 1].content.$t
             obj.id = entry[i + 2].content.$t
 
-            if (obj.id == 1) html += `<option value="${obj.val}" data-id="${obj.id}">${obj.text}</option>`
+            if (obj.id == 1)
+                html += `<option value="${obj.val}" data-id="${obj.id}">${obj.text}</option>`
 
             arr.push(obj)
         }
-
-    }
-    else {
-
+    } else {
         for (let i = col; i < entry.length; i += col) {
-
             let obj = {}
             obj.val = entry[i].content.$t
             obj.text = entry[i + 1].content.$t
@@ -60,10 +52,6 @@ function startRenderOptions(el, list, col, entry) {
         }
     }
 
-
     $element.insertAdjacentHTML('beforeend', html)
     localStorage.setItem(key, JSON.stringify(arr))
 }
-
-// Построение таблицы сохраненных заказов
-catalogBuild()
