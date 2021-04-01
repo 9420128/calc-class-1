@@ -16,17 +16,24 @@ export class BuildStorageSelect {
         const $w = document.getElementById('w')
 
         let html = ''
+        let html_options_p = 0
 
         this.model.forEach((el) => {
             if (this.list == 1) {
                 if (el.id.indexOf(this.id) == 0)
                     html += `<option value="${el.val}" data-id="${el.id}">${el.text}</option>`
             } else {
-                if (el.val.indexOf(this.id) == 0)
+                if (el.val.indexOf(this.id) == 0) {
                     html += `<option value="${el.val}" data-el-w="${el.w}" data-el-h="${el.h}" data-el-c="${el.c}" data-el-i="${el.i}" data-el-p="${el.p}">${el.text}</option>`
+
+                    if (html_options_p === 0) html_options_p = el.c
+                }
             }
         })
+
         this.$element.insertAdjacentHTML('beforeend', html)
+
+        if (html_options_p != 0) new BuildInput(html_options_p)
 
         if (!html) this.$element.disabled = true
         else this.$element.disabled = false
@@ -59,5 +66,12 @@ export class BuildStartSelect {
         arr.forEach((el) => {
             startRender(el.el, el.list, el.col)
         })
+    }
+}
+
+export class BuildInput {
+    constructor(val) {
+        this.$input = document.getElementById('options_p')
+        this.$input.value = val
     }
 }

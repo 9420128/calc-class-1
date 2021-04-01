@@ -7,6 +7,7 @@ export class UserPrice {
         this.$h = document.getElementById('h')
         this.$select_1 = document.getElementById('select_1')
         this.$options_1 = document.getElementById('options_1')
+        this.$options_p = document.getElementById('options_p')
         this.$label_2 = document.getElementById('label_2')
         this.$options_2 = document.getElementById('options_2')
         this.$deck_1 = document.getElementById('deck_1')
@@ -43,7 +44,8 @@ export class UserPrice {
         let w = !this.$w.disabled ? this.$w.value / 1000 : 0
         let h = this.$h.value / 1000
 
-        let c = +selectVal(this.$options_1)[3],
+        // let c = +selectVal(this.$options_1)[3],
+        let c = +this.$options_p.value,
             cU = +selectVal(this.$options_2)[3],
             i = selectVal(this.$options_1)[4],
             f = selectVal(this.$options_1)[5],

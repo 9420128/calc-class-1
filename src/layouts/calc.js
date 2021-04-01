@@ -27,6 +27,11 @@ export default `
                             <label for="options_1">Материал</label>
                             <select name="" id="options_1"></select>
                         </div>
+
+                        <div class="col w-40">
+                            <label for="options_p">Стоимость услуги</label>
+                            <input class="input" id="options_p"  type="number" onFocus="this.select()">
+                        </div>
                     </div>
 
                     <div class="grid">
@@ -52,6 +57,16 @@ export default `
                             />
                         </div>
                     </div>
+                    <label class="onoffswitch-wrap">
+					<span class="onoffswitch">
+						<input type="checkbox" name="publish" class="onoffswitch-checkbox" checked>
+						<span class="onoffswitch-label">
+							<span class="onoffswitch-inner"></span>
+							<span class="onoffswitch-switch"></span>
+						</span>
+					</span>
+					<span>Группировать таблицу</span>
+				</label>
                 </div>
                 <div class="footer">
                     <div class="footer__grid">

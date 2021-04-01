@@ -7,12 +7,14 @@ import {
     storageOut,
     noticBuild,
     catalogBuild,
+    selectVal,
 } from './function'
 import { UserPrice } from './classes/userPrice'
 import {
     BuildStorageSelect,
     BuildTabs,
     BuildStartSelect,
+    BuildInput,
 } from './classes/build'
 //
 
@@ -40,11 +42,13 @@ export function calcGlobal() {
         $options_1 = document.getElementById('options_1'),
         $select_1 = document.getElementById('select_1'),
         $options_2 = document.getElementById('options_2'),
+        $options_p = document.getElementById('options_p'),
         $label_2 = document.getElementById('label_2'),
         $w = document.getElementById('w'),
         $h = document.getElementById('h'),
         tabs = $calc.getElementsByTagName('li'),
         $submit = document.getElementById('submit'),
+        $deck_3 = document.getElementById('deck_3'),
         UserP = new UserPrice()
 
     // asa
@@ -176,7 +180,8 @@ export function calcGlobal() {
         UserP.func_S()
     }
 
-    $options_1.onchange = () => {
+    $options_1.onchange = (e) => {
+        new BuildInput(selectVal(e.target)[3])
         UserP.func_S()
     }
 
@@ -188,6 +193,10 @@ export function calcGlobal() {
         UserP.func_S()
     }
 
+    $options_p.oninput = () => {
+        UserP.func_S()
+    }
+
     $submit.onclick = tableBuild
 
     function tableBuild(e) {
@@ -195,7 +204,7 @@ export function calcGlobal() {
 
         UserP.func_Table()
 
-        noticBuild(ADMIN.notic.table)
+        if ($deck_3.textContent != 0) noticBuild(ADMIN.notic.table)
     }
 
     time('deck_6')

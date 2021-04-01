@@ -1,5 +1,6 @@
 import 'babel-polyfill'
 import { ADMIN } from './admin'
+import { BuildInput } from './classes/build'
 
 export async function startRender(el, list, col) {
     let googleMainUrl = ADMIN.googleURL.before + list + ADMIN.googleURL.after
@@ -20,7 +21,8 @@ function startRenderOptions(el, list, col, entry) {
 
     let html = '',
         arr = [],
-        key = ADMIN.KEY[0] + list
+        key = ADMIN.KEY[0] + list,
+        html_options_p = 0
 
     if (list == 1) {
         for (let i = col; i < entry.length; i += col) {
@@ -45,8 +47,10 @@ function startRenderOptions(el, list, col, entry) {
             obj.i = entry[i + 5].content.$t
             obj.p = entry[i + 6].content.$t
 
-            if (obj.val == 1 || obj.val == 'steny')
+            if (obj.val == 1 || obj.val == 'steny') {
                 html += `<option value="${obj.val}" data-el-w="${obj.w}" data-el-h="${obj.h}" data-el-c="${obj.c}" data-el-i="${obj.i}" data-el-p="${obj.p}">${obj.text}</option>`
+                if (html_options_p === 0) html_options_p = obj.c
+            }
 
             arr.push(obj)
         }
@@ -54,4 +58,6 @@ function startRenderOptions(el, list, col, entry) {
 
     $element.insertAdjacentHTML('beforeend', html)
     localStorage.setItem(key, JSON.stringify(arr))
+
+    if (html_options_p != 0) new BuildInput(html_options_p)
 }

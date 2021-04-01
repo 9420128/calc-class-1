@@ -130,6 +130,10 @@ h1 {
     }
 }
 
+.w-40 {
+    width: 40%;
+}
+
 .body {
     padding: 2em 1em;
     min-height: 180px;
@@ -350,6 +354,109 @@ button {
     margin: 0;
 }
 
+// ------------------------------------------------- onoffswitch ----------------------------------------
+
+.onoffswitch-wrap {
+    margin-top: 2em;
+    margin-bottom: -1em;
+    display: inline-block;
+    vertical-align: text-bottom;
+}
+
+.onoffswitch {
+    margin-right: 6px;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    width: 32px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.onoffswitch-checkbox {
+    display: none;
+}
+
+.onoffswitch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px;
+}
+
+.onoffswitch-inner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    -moz-transition: margin 0.3s ease-in 0s;
+    -webkit-transition: margin 0.3s ease-in 0s;
+    -o-transition: margin 0.3s ease-in 0s;
+    transition: margin 0.3s ease-in 0s;
+}
+
+.onoffswitch-inner:before,
+.onoffswitch-inner:after {
+    display: block;
+    float: left;
+    width: 50%;
+    height: 14px;
+    padding: 0;
+    line-height: 23px;
+    font-size: 14px;
+    color: white;
+    font-family: Trebuchet, Arial, sans-serif;
+    font-weight: bold;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.onoffswitch-inner:before {
+    content: '';
+    padding-left: 10px;
+    background-color: #ededed;
+    color: #ffffff;
+}
+
+.onoffswitch-inner:after {
+    content: '';
+    padding-right: 10px;
+    background-color: #fd6262;
+    color: #333333;
+    text-align: right;
+}
+
+.onoffswitch-switch {
+    display: block;
+    width: 18px;
+    margin: -2.5px;
+    background: #009fe3;
+    border-radius: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 17px;
+    -moz-transition: all 0.3s ease-in 0s;
+    -webkit-transition: all 0.3s ease-in 0s;
+    -o-transition: all 0.3s ease-in 0s;
+    transition: all 0.3s ease-in 0s;
+}
+
 // ------------------------------------------------- icon ----------------------------------------
 
 svg:not(:root).svg-inline--fa {
@@ -429,6 +536,7 @@ h3 > span {
         background: #fff;
         color: #666;
         border: 1px solid $border_1;
+        font-size: 1rem;
     }
 
     button {
