@@ -23,6 +23,7 @@ export class UserPrice {
         this.$tableSumm = document.getElementById('tableSumm')
         this.$deck_2_2 = document.getElementById('deck_2_2')
         this.$table = document.getElementById('table')
+        this.$duble = document.getElementById('duble')
         this.arr = []
     }
 
@@ -108,7 +109,12 @@ export class UserPrice {
             this.$table.innerHTML = ''
 
             this.arr.forEach((el) => {
-                if (el.text == text && el.option == option) {
+                if (
+                    el.text == text &&
+                    el.option == option &&
+                    this.$duble.checked &&
+                    flag
+                ) {
                     el.num = num
                     el.text = text
                     el.option = option
@@ -198,7 +204,7 @@ export class UserPrice {
         td,th {padding: 6px 8px;}
         h3 span{font-size: 14px;}
 
-        th:nth-child(6),td:nth-child(7), .slid, #calc {display: none}
+        th:nth-child(6),td:nth-child(7), .slid, #calc, button {display: none}
         tr{border-bottom: 1px solid #999;}
         td:nth-child(2),td:nth-child(3) {width: 45%}
         td:nth-child(4) {padding: 6px 0, width: 1px; text-align: right}

@@ -8,6 +8,7 @@ import './styles/main.scss'
 // import { click } from './click'
 
 import { calcGlobal } from './click'
+import { price_js } from './price/priceBuild'
 
 const pages = {
     calc: import('./layouts/calc'),
@@ -31,9 +32,10 @@ const renderPage = async (name) => {
     mainEl.innerHTML = template.default
 
     if (name === 'calc') calcGlobal()
+    else if (name === 'price') price_js()
 }
 
-renderPage('calc')
+renderPage('price')
 
 const toggleClass = (activeLink, currentLink) => {
     if (activeLink === currentLink) {
@@ -70,6 +72,12 @@ $nav__btn.addEventListener('click', (e) => {
 
     el.classList.toggle('active')
 
-    if (el.classList.contains('active')) nav.classList.add('open')
-    else nav.classList.remove('open')
+    if (el.classList.contains('active')) {
+        nav.classList.add('open')
+
+        setTimeout(() => {
+            el.classList.remove('active')
+            nav.classList.remove('open')
+        }, 5000)
+    } else nav.classList.remove('open')
 })

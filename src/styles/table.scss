@@ -97,7 +97,6 @@
     vertical-align: top;
     border-color: $border_1;
     caption-side: bottom;
-    width: 100%;
     background-color: white;
     border-collapse: collapse;
 
@@ -116,6 +115,17 @@
     thead {
         vertical-align: bottom;
     }
+}
+
+.fb-table.table-price {
+    padding: 0.5em 0;
+    text-align: left;
+    display: block;
+}
+
+.fb-table.table-price th,
+.fb-table.table-price td {
+    font-size: 1rem;
 }
 
 .fb-table.catalog {

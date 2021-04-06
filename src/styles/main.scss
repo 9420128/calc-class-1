@@ -130,8 +130,12 @@ h1 {
     }
 }
 
+.aside {
+    margin-top: $grid;
+}
 .w-40 {
-    width: 40%;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .body {
@@ -177,6 +181,10 @@ h1 {
     background-color: $bg_1;
 }
 
+.container__row {
+    padding-top: $grid;
+    width: 60%;
+}
 // ------------------------------------------------- slid ----------------------------------------
 
 .slid {
@@ -352,6 +360,19 @@ button {
     background-color: inherit;
     padding: 0;
     margin: 0;
+}
+
+.btn-g {
+    border-radius: $radius;
+    background-color: $bg_2;
+    padding: 0.8em 1em;
+    color: white;
+    font-size: 1em;
+    margin-bottom: 1em;
+
+    &:hover {
+        background-color: $bg_1;
+    }
 }
 
 // ------------------------------------------------- onoffswitch ----------------------------------------

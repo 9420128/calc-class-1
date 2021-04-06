@@ -170,14 +170,6 @@ export function catalogBuild() {
     flagHidden()
 }
 
-// export function checkGreen() {
-//     const $check = document.querySelector('.check')
-//     $check.setAttribute('style', 'color: #00ff5f')
-//     setTimeout(function () {
-//         $check.removeAttribute('style')
-//     }, 2000)
-// }
-
 export function flagHidden() {
     const $flag = document.querySelector('.flag')
     const element = document.querySelectorAll('#catalog tr')

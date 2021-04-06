@@ -1,4 +1,12 @@
 export default `
-  <h1 class="cover-heading">Projects page</h1>
-  <p class="lead">Projects page content</p>
+  <div class="container">
+      <div class="grid col-xm">
+          <div class="aside w-40">
+              
+          </div>
+          <div class="wrap">
+          </div>
+      </div>
+  </div>
+    
 `.trim()

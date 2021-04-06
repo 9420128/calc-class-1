@@ -59,7 +59,7 @@ export default `
                     </div>
                     <label class="onoffswitch-wrap">
 					<span class="onoffswitch">
-						<input type="checkbox" name="publish" class="onoffswitch-checkbox" checked>
+						<input type="checkbox" id="duble" class="onoffswitch-checkbox" checked>
 						<span class="onoffswitch-label">
 							<span class="onoffswitch-inner"></span>
 							<span class="onoffswitch-switch"></span>
