@@ -32,7 +32,7 @@ export class UserPrice {
         if (f == 's') sum = w * h
         else if (f == 'p') sum = w + h
         else if (f == '2p') sum = (w + h) * 2
-        else if (f == 'z') sum = 1
+        else if (f == 'z') sum = h * 1000
         else if (f == 'k') {
             let s = w * h
             sum = Math.ceil(s / 0.5) * 0.5

@@ -172,6 +172,8 @@ export function calcGlobal() {
             $select_1.value
         )
 
+        new BuildInput(selectVal($options_1)[3], selectVal($options_1)[5])
+
         UserP.func_S()
         labelBild($select_1, $label_2)
     }
@@ -181,7 +183,7 @@ export function calcGlobal() {
     }
 
     $options_1.onchange = (e) => {
-        new BuildInput(selectVal(e.target)[3])
+        new BuildInput(selectVal(e.target)[3], selectVal(e.target)[5])
         UserP.func_S()
     }
 

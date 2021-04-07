@@ -138,6 +138,10 @@ h1 {
     box-sizing: border-box;
 }
 
+.visible-xx {
+    display: none;
+}
+
 .body {
     padding: 2em 1em;
     min-height: 180px;
@@ -373,6 +377,23 @@ button {
     &:hover {
         background-color: $bg_1;
     }
+}
+
+.linc {
+    font-size: inherit;
+    color: #333;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+small {
+    font-size: 0.8em;
+}
+
+.muted {
+    color: #777;
 }
 
 // ------------------------------------------------- onoffswitch ----------------------------------------

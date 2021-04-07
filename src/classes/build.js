@@ -70,8 +70,32 @@ export class BuildStartSelect {
 }
 
 export class BuildInput {
-    constructor(val) {
+    constructor(val, func) {
         this.$input = document.getElementById('options_p')
+        this.$h = document.getElementById('h')
+        this.$w = document.getElementById('w')
+        this.$label_h = this.$h.previousElementSibling
+
         this.$input.value = val
+
+        if (func === 'z') {
+            this.$h.value = 1
+            this.$label_h.textContent = 'Кол-во'
+            this.$w.disabled = true
+        }
+        if (func !== 'z' && this.$w.disabled) {
+            this.$label_h.textContent = 'Длина'
+            this.$w.disabled = false
+        }
+    }
+}
+
+export class BuildFooterText {
+    constructor() {
+        this.$el = document.getElementById('footer__text')
+        const Data = new Date(),
+            Year = Data.getFullYear()
+
+        this.$el.textContent = Year + ' ' + ADMIN.textFooter
     }
 }

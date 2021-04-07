@@ -8,7 +8,9 @@ import './styles/main.scss'
 // import { click } from './click'
 
 import { calcGlobal } from './click'
-import { price_js } from './price/priceBuild'
+import { price_js } from './pagesBuild/priceBuild'
+import { contact_js } from './pagesBuild/contactBuild'
+import { BuildFooterText } from './classes/build'
 
 const pages = {
     calc: import('./layouts/calc'),
@@ -30,12 +32,14 @@ const $title = document.querySelector('.title')
 const renderPage = async (name) => {
     const template = await pages[name]
     mainEl.innerHTML = template.default
+    new BuildFooterText()
 
     if (name === 'calc') calcGlobal()
     else if (name === 'price') price_js()
+    else if (name === 'contact') contact_js()
 }
 
-renderPage('price')
+renderPage('calc')
 
 const toggleClass = (activeLink, currentLink) => {
     if (activeLink === currentLink) {
