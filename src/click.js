@@ -134,8 +134,12 @@ export function calcGlobal() {
 
         // Клик по кнопке обновить
         if (t.className == 'tableNavR') {
-            localStorage.clear()
-            location.reload()
+            const result = confirm()
+
+            if (result) {
+                localStorage.clear()
+                location.reload()
+            }
         }
 
         // Клик по кнопке сохранить

@@ -18,6 +18,7 @@ export default `
                 </a>
                 -->
                 <div class="nav">
+                    <button class="nav__login" title="Войти"></button>
                     <button class="nav__btn"></button>
 
                     <nav class="nav__nav">

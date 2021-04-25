@@ -184,5 +184,5 @@ export function noticBuild(message) {
 
     $noticBlock.classList.add('open')
     $noticText.textContent = message
-    setTimeout(() => $noticBlock.classList.remove('open'), 1000)
+    setTimeout(() => $noticBlock.classList.remove('open'), 3000)
 }

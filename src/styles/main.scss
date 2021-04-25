@@ -47,10 +47,11 @@ h1 {
 }
 .nav {
     position: relative;
+    display: flex;
+    align-items: center;
 
-    &__btn {
+    button {
         opacity: 0.6;
-        background: url(../assets/bars.svg) no-repeat;
         height: 35px;
         width: 35px;
         transition: 0.2s ease-out;
@@ -58,6 +59,20 @@ h1 {
         &:hover {
             opacity: 1;
         }
+    }
+
+    &__btn {
+        margin-left: 1.5em;
+        margin-top: -6px;
+        background: url(../assets/bars.svg) no-repeat;
+    }
+
+    &__login {
+        background: url(../assets/user-lock.svg) no-repeat;
+    }
+
+    &__logaut {
+        background: url(../assets/user-check.svg) no-repeat;
     }
 
     &__nav {
@@ -556,6 +571,11 @@ h3 > span {
     font-size: 1em;
 }
 
+.fa-check {
+    color: #00e313 !important;
+    background-color: #00e313;
+}
+
 // ------------------------------------------------- fb-modal ----------------------------------------
 
 .fb-modal {
@@ -664,6 +684,24 @@ h3 > span {
     top: 1.2em;
     width: 1em;
     height: 1em;
+}
+
+// --------------------------------------------- form-modal
+
+.form-modal {
+    position: fixed;
+    width: 300px;
+    display: block;
+    top: 2em;
+    left: 50%;
+    margin-left: -150px;
+    z-index: 1;
+    border-radius: $radius;
+    box-sizing: border-box;
+
+    input {
+        margin-bottom: 1.5em;
+    }
 }
 
 @import './table.scss';
