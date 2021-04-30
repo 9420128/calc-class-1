@@ -11,31 +11,13 @@ import { calcGlobal } from './click'
 import { price_js } from './pagesBuild/priceBuild'
 import { contact_js } from './pagesBuild/contactBuild'
 import { BuildFooterText } from './classes/build'
-import { Login } from './classes/login'
+import { loginInit } from './store/auth'
 
 const pages = {
     calc: import('./layouts/calc'),
     price: import('./layouts/price'),
     contact: import('./layouts/contact'),
 }
-
-// ------------------------------------ firebaseConfig --------------------------------- //
-
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/database'
-
-firebase.initializeApp({
-    apiKey: 'AIzaSyCf2FlwO4FSnk7z6hsWjwyg_meJ_i2s2CM',
-    authDomain: 'balkon-a7d2c.firebaseapp.com',
-    projectId: 'balkon-a7d2c',
-    storageBucket: 'balkon-a7d2c.appspot.com',
-    messagingSenderId: '262217519920',
-    appId: '1:262217519920:web:b9309b5378e305ecf8eef5',
-    measurementId: 'G-DV4QP0P63B',
-})
-
-// ------------------------------------ firebaseConfig --------------------------------- //
 
 document.body.innerHTML = `
     ${header}
@@ -105,33 +87,4 @@ $nav__btn.addEventListener('click', (e) => {
 })
 
 // -----------------------------------------------------------------  login
-const loginInit = () => {
-    const $nav__login = document.querySelector('.nav__login')
-    const loginJS = new Login()
-
-    firebase.auth().onAuthStateChanged((e) => {
-        if (e) {
-            $nav__login.classList.remove('nav__login')
-            $nav__login.classList.add('nav__logaut')
-            $nav__login.setAttribute('title', 'Выйти')
-        }
-    })
-
-    $nav__login.addEventListener('click', (e) => {
-        const t = e.target
-
-        // Клик по кнопке войти
-        if (t.className === 'nav__login') {
-            loginJS.func_login(t)
-        }
-
-        // Клик по кнопке выйти
-        if (t.className === 'nav__logaut') {
-            const isAdmin = confirm('Для выхода нажмите ОК')
-
-            if (isAdmin) loginJS.func_logaut(t)
-        }
-    })
-}
-
 loginInit()

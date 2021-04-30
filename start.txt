@@ -2,10 +2,13 @@ npm run serve
 
 npm run build
 
+firebase deploy
+
+
 npm install -g firebase-tools
 firebase login
   Set-ExecutionPolicy RemoteSigned // командная строка компьютера
-firebase deploy
+
 
 npm i firebase
 
@@ -84,3 +87,21 @@ const tabs = $calc.getElementsByTagName('li')
 
 str.split('-') // разбирает строку в массив
 str.join(' ') // убирает символы межу словами
+
+str.replace(/ /g, '_') // замена пробела символом
+
+length
+
+
+
+
+......................... firebase ......................
+
+id - пользователя
+const user = firebase.auth().currentUser
+return user ? user.uid : null
+
+получение даных
+ const ref = await firebase.database().ref(`users/${uid}/info/catalog`)
+        ref.on('value', (snapshot) => {
+            const data = snapshot.val()

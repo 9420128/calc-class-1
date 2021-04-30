@@ -110,6 +110,8 @@ export function trBuild(arr, el) {
     const $element = document.getElementById(el)
     $element.innerHTML = ''
 
+    if (!arr) return
+
     arr.forEach((el, i) => {
         html += `<tr class="tableRow">
                 <td class="tableEl" data-el="num" nowrap data-id="${i}" data-type="number">${
@@ -139,43 +141,35 @@ export function trBuild(arr, el) {
 
 // Построение таблицы сохраненных заказов
 export function catalogBuild() {
-    const arr = storageOut(ADMIN.KEY[1]),
-        $element = document.querySelector('#catalog')
-
-    let html = '',
-        flag = false
-
-    if (!!arr) {
-        if (arr.length == 0) return
-    } else {
-        return
-    }
-
-    flag = true
-
-    $element.innerHTML = ''
-
-    arr.forEach((el) => {
-        if (el) {
-            html += `<tr>
-            <td class="catalog_1" data-spec="${el.spec}" data-isp="${el.isp}" data-user="${el.user}" data-adres="${el.adres}" data-prim="${el.prim}" data-data="${el.data}" style="width: 100%">${el.key}</td>
-            <td class="catalog_2">${el.data}</td>
-            <td><span class="catalog_3" data-val="${el.key}"></span></td>
-        </tr>`
-        }
-    })
-
-    $element.insertAdjacentHTML('beforeend', html)
-
-    flagHidden()
+    // const arr = storageOut(ADMIN.KEY[1]),
+    //     $element = document.querySelector('#catalog')
+    // let html = '',
+    //     flag = false
+    // if (!!arr) {
+    //     if (arr.length == 0) return
+    // } else {
+    //     return
+    // }
+    // flag = true
+    // $element.innerHTML = ''
+    // arr.forEach((el) => {
+    //     if (el) {
+    //         html += `<tr>
+    //         <td class="catalog_1" data-spec="${el.spec}" data-isp="${el.isp}" data-user="${el.user}" data-adres="${el.adres}" data-prim="${el.prim}" data-data="${el.data}" style="width: 100%">${el.key}</td>
+    //         <td class="catalog_2">${el.data}</td>
+    //         <td><span class="catalog_3" data-val="${el.key}"></span></td>
+    //     </tr>`
+    //     }
+    // })
+    // $element.insertAdjacentHTML('beforeend', html)
+    // flagHidden()
 }
 
 export function flagHidden() {
-    const $flag = document.querySelector('.flag')
-    const element = document.querySelectorAll('#catalog tr')
-
-    if (element.length === 0) $flag.classList.add('hidden')
-    else $flag.classList.remove('hidden')
+    // const $flag = document.querySelector('.flag')
+    // const element = document.querySelectorAll('#catalog tr')
+    // if (element.length === 0) $flag.classList.add('hidden')
+    // else $flag.classList.remove('hidden')
 }
 
 export function noticBuild(message) {

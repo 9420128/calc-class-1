@@ -1,5 +1,6 @@
 import { selectVal, storageOut, trBuild, catalogBuild } from '../function'
 import { ADMIN } from '../admin'
+import { firebaseSave, firebaseRemove, sdRender } from '../store/auth'
 
 export class UserPrice {
     constructor() {
@@ -183,6 +184,9 @@ export class UserPrice {
 
     func_tableSumm() {
         let summ = 0
+
+        if (!this.arr) return
+
         this.arr.forEach((p) => {
             summ += Number(p.p)
         })
@@ -244,8 +248,8 @@ export class UserPrice {
     func_tableSaveLocal(el) {
         const val = document.querySelector('.tableText').value
 
-        let data = storageOut(ADMIN.KEY[1]),
-            arr = []
+        // let data = storageOut(ADMIN.KEY[1]),
+        //     arr = []
 
         if (!val) return
 
@@ -259,78 +263,89 @@ export class UserPrice {
             user: this.$deck_10.textContent.trim(),
         }
 
-        if (data) {
-            let inx
-            data.forEach((key, i) => {
-                if (val === key.key) {
-                    inx = i
-                }
-            })
+        // if (data) {
+        //     let inx
+        //     data.forEach((key, i) => {
+        //         if (val === key.key) {
+        //             inx = i
+        //         }
+        //     })
 
-            // Если одинаковый ключ, удаляем старый ключ и таблицу
-            if (typeof inx === 'number') {
-                data.splice(inx, 1)
-                localStorage.removeItem(ADMIN.KEY[2] + val)
-            }
+        //     // Если одинаковый ключ, удаляем старый ключ и таблицу
+        //     if (typeof inx === 'number') {
+        //         data.splice(inx, 1)
+        //         localStorage.removeItem(ADMIN.KEY[2] + val)
+        //     }
 
-            data.push(info)
+        //     data.push(info)
 
-            localStorage.setItem(ADMIN.KEY[1], JSON.stringify(data))
-            localStorage.setItem(ADMIN.KEY[2] + val, JSON.stringify(this.arr))
-        } else {
-            arr.push(info)
-            localStorage.setItem(ADMIN.KEY[1], JSON.stringify(arr))
-            localStorage.setItem(ADMIN.KEY[2] + val, JSON.stringify(this.arr))
-        }
+        //     localStorage.setItem(ADMIN.KEY[1], JSON.stringify(data))
+        //     localStorage.setItem(ADMIN.KEY[2] + val, JSON.stringify(this.arr))
+        // } else {
+        //     arr.push(info)
+        //     localStorage.setItem(ADMIN.KEY[1], JSON.stringify(arr))
+        //     localStorage.setItem(ADMIN.KEY[2] + val, JSON.stringify(this.arr))
+        // }
 
-        catalogBuild()
+        // catalogBuild()
+
+        firebaseSave(val, this.arr, info)
     }
 
     // Клик сохраненные заказы, построение таблицы
     func_tableStorageBuild(t) {
         const key = t.textContent,
-            spec = t.dataset.spec,
-            data = t.dataset.data,
-            prim = t.dataset.prim,
-            adres = t.dataset.adres,
-            isp = t.dataset.isp,
-            user = t.dataset.user,
-            arr = storageOut(ADMIN.KEY[2] + key)
+            arrZakaz = storageOut(ADMIN.KEY[2]),
+            arrCatalog = storageOut(ADMIN.KEY[1])
+        //     const spec = t.dataset.spec,
+        //     data = t.dataset.data,
+        //     prim = t.dataset.prim,
+        //     adres = t.dataset.adres,
+        //     isp = t.dataset.isp,
+        //     user = t.dataset.user,
+        //     arr = storageOut(ADMIN.KEY[2] + key)
 
-        this.arr = arr
+        // - firebase
+
+        sdRender(key)
+
+        this.arr = arrZakaz
 
         trBuild(this.arr, 'table')
         this.func_tableSummBuild('deck_4')
         this.func_tableSummBuild('tableSumm')
 
-        this.$deck_5.textContent = spec
-        this.$deck_6.textContent = data
-        this.$deck_7.textContent = adres
-        this.$deck_8.textContent = prim
-        this.$deck_9.textContent = isp
-        this.$deck_10.textContent = user
+        this.$deck_5.textContent = arrCatalog.spec
+        this.$deck_6.textContent = arrCatalog.data
+        this.$deck_7.textContent = arrCatalog.adres
+        this.$deck_8.textContent = arrCatalog.prim
+        this.$deck_9.textContent = arrCatalog.isp
+        this.$deck_10.textContent = arrCatalog.user
     }
 
     // Клик удалить сохраненный заказ
     func_tableStorageRemove(t) {
         const val = t.dataset.val
 
-        let keyArr = storageOut(ADMIN.KEY[1]),
-            numRemove,
-            arr = []
+        // let keyArr = storageOut(ADMIN.KEY[1]),
+        //     numRemove,
+        //     arr = []
 
-        keyArr.forEach((el, i) => {
-            if (el.key == val) numRemove = i
-        })
+        // keyArr.forEach((el, i) => {
+        //     if (el.key == val) numRemove = i
+        // })
 
-        keyArr.splice(numRemove, 1)
+        // keyArr.splice(numRemove, 1)
 
-        arr.push(keyArr)
+        // arr.push(keyArr)
 
-        localStorage.removeItem(ADMIN.KEY[1])
-        localStorage.setItem(ADMIN.KEY[1], JSON.stringify(keyArr))
+        // localStorage.removeItem(ADMIN.KEY[1])
+        // localStorage.setItem(ADMIN.KEY[1], JSON.stringify(keyArr))
 
-        localStorage.removeItem(ADMIN.KEY[2] + val)
+        // localStorage.removeItem(ADMIN.KEY[2] + val)
         t.parentElement.parentElement.remove()
+
+        // удаление сохраненного заказа - firebase
+        firebaseRemove(val)
     }
 }

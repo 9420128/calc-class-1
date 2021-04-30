@@ -16,6 +16,8 @@ import {
     BuildStartSelect,
     BuildInput,
 } from './classes/build'
+
+import { firebaseCatalog } from './store/auth'
 //
 
 export function calcGlobal() {
@@ -214,4 +216,6 @@ export function calcGlobal() {
     }
 
     time('deck_6')
+
+    firebaseCatalog()
 }
