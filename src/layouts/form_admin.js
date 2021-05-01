@@ -19,7 +19,8 @@ export default `
                 id="form-modal__password"
             />
         </div>
-        <div style="text-align: center">
+        <div style="display: flex; justify-content: space-between;">
+            <button id="formModalChancel" class="btn-g">Отмена</button>
             <button id="formModalSubmit" data-action="login" class="btn-g">Войти</button>
         </div>
     </form>

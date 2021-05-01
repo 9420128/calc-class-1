@@ -1,6 +1,6 @@
-import { noticBuild } from '../function'
-import { Login } from '../classes/login'
-import { ADMIN } from '../admin'
+import { noticBuild } from './function'
+import { Login } from './classes/login'
+import { ADMIN } from './admin'
 // ------------------------------------ firebaseConfig --------------------------------- //
 
 import firebase from 'firebase/app'
@@ -19,17 +19,22 @@ firebase.initializeApp({
 
 // ------------------------------------ firebaseConfig --------------------------------- //
 
+const db = firebase.database()
+const auth = firebase.auth()
+
 export const loginInit = () => {
     const $nav__login = document.querySelector('.nav__login')
     const loginJS = new Login()
 
-    firebase.auth().onAuthStateChanged((e) => {
+    auth.onAuthStateChanged((e) => {
         if (e) {
             $nav__login.classList.remove('nav__login')
             $nav__login.classList.add('nav__logaut')
             $nav__login.setAttribute('title', 'Выйти')
 
             firebaseCatalog()
+
+            avtorizateShow()
         }
     })
 
@@ -52,9 +57,8 @@ export const loginInit = () => {
 
 export async function login({ email, password }) {
     try {
-        await firebase.auth().signInWithEmailAndPassword(email, password)
+        await auth.signInWithEmailAndPassword(email, password)
     } catch (e) {
-        console.log(e)
         errorNotic(e.code)
 
         throw e
@@ -63,15 +67,13 @@ export async function login({ email, password }) {
 
 export async function register({ email, password, name }) {
     try {
-        await firebase.auth().createUserWithEmailAndPassword(email, password)
+        await auth.createUserWithEmailAndPassword(email, password)
 
         const uid = getUid()
-        await firebase.database().ref(`/users/${uid}/info`).set({
-            sd: '',
+        await db.ref(`/users/${uid}`).set({
             name,
         })
     } catch (e) {
-        console.log(e)
         errorNotic(e.code)
 
         throw e
@@ -79,7 +81,10 @@ export async function register({ email, password, name }) {
 }
 
 export async function logout() {
-    await firebase.auth().signOut()
+    await auth.signOut()
+
+    // закрыть кнопку сохранить
+    avtorizateShow()
 }
 
 function errorNotic(text) {
@@ -112,17 +117,12 @@ export async function firebaseSave(key, arr, catalog) {
 
         let fbKey = key.replace(/ /g, '_')
         // запись таблицы
-        await firebase.database().ref(`/users/${uid}/info/sd/${fbKey}`).set(arr)
+        await db.ref(`/users/${uid}/sd/${fbKey}`).set(arr)
 
         // запись ключа и информации таблицы
-        await firebase
-            .database()
-            .ref(`/users/${uid}/info/catalog/${fbKey}`)
-            .set(catalog)
+        await db.ref(`/users/${uid}/catalog/${fbKey}`).set(catalog)
     } catch (e) {
         errorNotic(e.code)
-
-        console.log(e)
 
         throw e
     }
@@ -133,11 +133,21 @@ export async function firebaseCatalog() {
     try {
         const uid = getUid()
 
-        const ref = await firebase.database().ref(`users/${uid}/info/catalog`)
+        const ref = await db.ref(`users/${uid}/catalog`)
         ref.on('value', (snapshot) => {
             const catalog = snapshot.val()
 
+            localStorage.setItem(ADMIN.KEY[1], JSON.stringify(catalog))
+
             catalogRender(catalog)
+        })
+
+        const ref_2 = await db.ref(`users/${uid}/sd`)
+
+        ref_2.on('value', (snapshot) => {
+            const sd = snapshot.val()
+
+            localStorage.setItem(ADMIN.KEY[2], JSON.stringify(sd))
         })
     } catch (e) {
         errorNotic(e.code)
@@ -147,7 +157,7 @@ export async function firebaseCatalog() {
 }
 
 function getUid() {
-    const user = firebase.auth().currentUser
+    const user = auth.currentUser
     return user ? user.uid : null
 }
 
@@ -181,37 +191,16 @@ export async function firebaseRemove(val) {
 
     let item = val.replace(/ /g, '_')
 
-    await firebase.database().ref(`users/${uid}/info/catalog/${item}`).remove()
-    await firebase.database().ref(`users/${uid}/info/sd/${item}`).remove()
+    await db.ref(`users/${uid}/catalog/${item}`).remove()
+    await db.ref(`users/${uid}/sd/${item}`).remove()
 }
 
-// -------------------------------- получение данных firebase sd ---------------------------------
-export async function sdRender(val) {
-    try {
-        const uid = getUid()
+// показ кнопки сохранить заказ при авторизации
+function avtorizateShow() {
+    const $nav__logaut = document.querySelector('.nav__logaut')
+    const $tableNavS = document.querySelector('.tableNavS')
 
-        let key = val.replace(/ /g, '_')
-
-        const ref = await firebase.database().ref(`users/${uid}/info/sd/${key}`)
-
-        ref.on('value', (snapshot) => {
-            const sd = snapshot.val()
-
-            localStorage.setItem(ADMIN.KEY[2], JSON.stringify(sd))
-        })
-
-        const ref_2 = await firebase
-            .database()
-            .ref(`users/${uid}/info/catalog/${key}`)
-
-        ref_2.on('value', (snapshot) => {
-            const catalog = snapshot.val()
-
-            localStorage.setItem(ADMIN.KEY[1], JSON.stringify(catalog))
-        })
-    } catch (e) {
-        errorNotic(e.code)
-
-        throw e
-    }
+    if ($nav__logaut) {
+        $tableNavS.style.display = 'block'
+    } else $tableNavS.style.display = 'none'
 }

@@ -1,6 +1,6 @@
-import { selectVal, storageOut, trBuild, catalogBuild } from '../function'
+import { selectVal, storageOut, trBuild } from '../function'
 import { ADMIN } from '../admin'
-import { firebaseSave, firebaseRemove, sdRender } from '../store/auth'
+import { firebaseSave, firebaseRemove } from '../firebase'
 
 export class UserPrice {
     constructor() {
@@ -26,6 +26,8 @@ export class UserPrice {
         this.$table = document.getElementById('table')
         this.$duble = document.getElementById('duble')
         this.arr = []
+
+        // firebaseSdRender()
     }
 
     func_Formula(f, w, h) {
@@ -55,11 +57,9 @@ export class UserPrice {
             izm = this.func_Formula(f, w, h),
             izmU = this.func_Formula(fU, w, h)
 
-        if (isNaN(w * h)) return
+        if (isNaN(w * h) || isNaN(c)) return
 
-        this.$deck_2.innerText = izm.toFixed()
-
-        if (isNaN(c)) return
+        this.$deck_2.innerText = izm.toFixed(1)
 
         if (cU == 0 || isNaN(cU)) {
             cU = 0
@@ -69,10 +69,10 @@ export class UserPrice {
         this.$deck_3.dataset.c = (izm * c).toFixed()
         this.$deck_3.dataset.cU = (izmU * cU).toFixed()
 
-        this.$deck_3.dataset.izm = izm.toFixed()
-        this.$deck_3.dataset.izmU = izmU.toFixed()
+        this.$deck_3.dataset.izm = izm.toFixed(1)
+        this.$deck_3.dataset.izmU = izmU.toFixed(1)
 
-        this.$deck_2_2.innerText = i
+        if (i) this.$deck_2_2.innerText = i
     }
 
     func_Table() {
@@ -248,9 +248,6 @@ export class UserPrice {
     func_tableSaveLocal(el) {
         const val = document.querySelector('.tableText').value
 
-        // let data = storageOut(ADMIN.KEY[1]),
-        //     arr = []
-
         if (!val) return
 
         const info = {
@@ -263,53 +260,16 @@ export class UserPrice {
             user: this.$deck_10.textContent.trim(),
         }
 
-        // if (data) {
-        //     let inx
-        //     data.forEach((key, i) => {
-        //         if (val === key.key) {
-        //             inx = i
-        //         }
-        //     })
-
-        //     // Если одинаковый ключ, удаляем старый ключ и таблицу
-        //     if (typeof inx === 'number') {
-        //         data.splice(inx, 1)
-        //         localStorage.removeItem(ADMIN.KEY[2] + val)
-        //     }
-
-        //     data.push(info)
-
-        //     localStorage.setItem(ADMIN.KEY[1], JSON.stringify(data))
-        //     localStorage.setItem(ADMIN.KEY[2] + val, JSON.stringify(this.arr))
-        // } else {
-        //     arr.push(info)
-        //     localStorage.setItem(ADMIN.KEY[1], JSON.stringify(arr))
-        //     localStorage.setItem(ADMIN.KEY[2] + val, JSON.stringify(this.arr))
-        // }
-
-        // catalogBuild()
-
         firebaseSave(val, this.arr, info)
     }
 
     // Клик сохраненные заказы, построение таблицы
     func_tableStorageBuild(t) {
-        const key = t.textContent,
+        const key = t.textContent.replace(/ /g, '_'),
             arrZakaz = storageOut(ADMIN.KEY[2]),
-            arrCatalog = storageOut(ADMIN.KEY[1])
-        //     const spec = t.dataset.spec,
-        //     data = t.dataset.data,
-        //     prim = t.dataset.prim,
-        //     adres = t.dataset.adres,
-        //     isp = t.dataset.isp,
-        //     user = t.dataset.user,
-        //     arr = storageOut(ADMIN.KEY[2] + key)
+            arrCatalog = storageOut(ADMIN.KEY[1])[key]
 
-        // - firebase
-
-        sdRender(key)
-
-        this.arr = arrZakaz
+        this.arr = arrZakaz[key]
 
         trBuild(this.arr, 'table')
         this.func_tableSummBuild('deck_4')
@@ -327,22 +287,6 @@ export class UserPrice {
     func_tableStorageRemove(t) {
         const val = t.dataset.val
 
-        // let keyArr = storageOut(ADMIN.KEY[1]),
-        //     numRemove,
-        //     arr = []
-
-        // keyArr.forEach((el, i) => {
-        //     if (el.key == val) numRemove = i
-        // })
-
-        // keyArr.splice(numRemove, 1)
-
-        // arr.push(keyArr)
-
-        // localStorage.removeItem(ADMIN.KEY[1])
-        // localStorage.setItem(ADMIN.KEY[1], JSON.stringify(keyArr))
-
-        // localStorage.removeItem(ADMIN.KEY[2] + val)
         t.parentElement.parentElement.remove()
 
         // удаление сохраненного заказа - firebase

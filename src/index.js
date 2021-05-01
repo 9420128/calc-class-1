@@ -11,7 +11,7 @@ import { calcGlobal } from './click'
 import { price_js } from './pagesBuild/priceBuild'
 import { contact_js } from './pagesBuild/contactBuild'
 import { BuildFooterText } from './classes/build'
-import { loginInit } from './store/auth'
+import { loginInit } from './firebase'
 
 const pages = {
     calc: import('./layouts/calc'),
@@ -34,8 +34,9 @@ const renderPage = async (name) => {
     mainEl.innerHTML = template.default
     new BuildFooterText()
 
-    if (name === 'calc') calcGlobal()
-    else if (name === 'price') price_js()
+    if (name === 'calc') {
+        calcGlobal()
+    } else if (name === 'price') price_js()
     else if (name === 'contact') contact_js()
 }
 
@@ -63,7 +64,7 @@ const initClickHandlers = () => {
             const currentLink = ev.target
             toggleClass(activeLink, currentLink)
             renderPage(currentLink.name)
-            titleBuild(currentLink.innerHTML)
+            titleBuild(currentLink.textContent)
         }
     })
 }

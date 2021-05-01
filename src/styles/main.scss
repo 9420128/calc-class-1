@@ -248,6 +248,7 @@ h1 {
 
 .tableNavS {
     background: url(../assets/save.svg) no-repeat;
+    display: none;
 }
 
 // ------------------------------------------------- footer ----------------------------------------
@@ -691,11 +692,11 @@ h3 > span {
 
 .form-modal {
     position: fixed;
-    width: 300px;
+    width: 340px;
     display: block;
     top: 2em;
     left: 50%;
-    margin-left: -150px;
+    margin-left: -170px;
     z-index: 1;
     border-radius: $radius;
     overflow: hidden;

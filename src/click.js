@@ -3,10 +3,8 @@ import {
     labelBild,
     time,
     tableModal,
-    flagHidden,
     storageOut,
     noticBuild,
-    catalogBuild,
     selectVal,
 } from './function'
 import { UserPrice } from './classes/userPrice'
@@ -17,7 +15,7 @@ import {
     BuildInput,
 } from './classes/build'
 
-import { firebaseCatalog } from './store/auth'
+import { firebaseCatalog } from './firebase'
 //
 
 export function calcGlobal() {
@@ -31,8 +29,6 @@ export function calcGlobal() {
             ADMIN.tabs[0].value
         )
         new BuildStorageSelect('options_2', ADMIN.googleList[1].list, 1)
-        // Построение таблицы сохраненных заказов
-        catalogBuild()
     } else {
         new BuildStartSelect(ADMIN.googleList) // построение SELECT услуги
     }
@@ -83,7 +79,6 @@ export function calcGlobal() {
 
     UserP.func_S()
     labelBild($select_1, $label_2)
-    // flagHidden()
 
     document.addEventListener('click', (e) => {
         const t = e.target
@@ -167,7 +162,6 @@ export function calcGlobal() {
         // Клик удалить сохраненный заказ
         if (t.className == 'catalog_3') {
             UserP.func_tableStorageRemove(t)
-            flagHidden()
         }
     })
 

@@ -1,7 +1,11 @@
-import { login, logout, register } from '../store/auth'
+import { login, logout, register } from '../firebase'
 
 export class Login {
     func_login(el) {
+        const $loginModal = document.querySelector('#loginModal')
+
+        if ($loginModal) return
+
         const html = import('../layouts/form_admin')
         const formModalNameWrap = `
         <div class="col" id="formModalNameWrap">
@@ -17,13 +21,14 @@ export class Login {
             const subm = document.getElementById('formModalSubmit')
             const login = document.getElementById('login')
             const register = document.getElementById('register')
+            const formModalChancel = document.querySelector('#formModalChancel')
 
             login.onclick = locinClick
             register.onclick = registerClick
 
             subm.onclick = modalSubmit
 
-            // console.log(subm)
+            formModalChancel.onclick = formModalChancelFunc
         }
 
         renderPage(html)
@@ -95,6 +100,11 @@ export class Login {
                 el.classList.add('nav__logaut')
                 el.setAttribute('title', 'Выйти')
             } catch (e) {}
+        }
+
+        function formModalChancelFunc(e) {
+            e.preventDefault()
+            document.querySelector('#loginModal').remove()
         }
     }
 
