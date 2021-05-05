@@ -119,14 +119,16 @@ export default `
                 </div>
             </div>
 
-            <div class="flag hidden">
-                <div class="col">
-                    <h2>Сохранённые заказы</h2>
-                </div>
+            <div class="catalog__wrap">
+                <div class="flag hidden">
+                    <div class="col">
+                        <h2>Сохранённые заказы</h2>
+                    </div>
 
-                <table class="fb-table catalog">
-                    <tbody id="catalog"></tbody>
-                </table>
+                    <table class="fb-table catalog">
+                        <tbody id="catalog"></tbody>
+                    </table>
+                </div>
             </div>
         </form>
 
