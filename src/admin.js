@@ -4,7 +4,7 @@ export const ADMIN = {
             'https://spreadsheets.google.com/feeds/cells/1xJl4Kkeg5lJyq7Q8uSXi8wsrJcRhRdIvkJtb5ztDPMU/',
         after: '/public/full?alt=json',
     },
-    KEY: ['fspb-options-', 'fspb-catalog', 'fspb-zakaz-'],
+    KEY: ['fspb-options-', 'fspb-catalog', 'fspb-zakaz', 'fspb-superuser'],
     tabs: [
         {
             value: 'steny',

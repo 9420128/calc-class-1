@@ -35,8 +35,7 @@ export function calcGlobal() {
 
     new BuildTabs(ADMIN.tabs)
 
-    const $body = document.body,
-        $calc = document.getElementById('calc'),
+    const $calc = document.getElementById('calc'),
         $options_1 = document.getElementById('options_1'),
         $select_1 = document.getElementById('select_1'),
         $options_2 = document.getElementById('options_2'),
@@ -70,11 +69,12 @@ export function calcGlobal() {
         )
         new BuildStorageSelect('options_2', ADMIN.googleList[1].list, tabId)
 
-        UserP.func_S()
-
         $label_2.textContent = label
 
+        new BuildInput(selectVal($options_1)[3], selectVal($options_1)[5])
         labelBild($select_1, $label_2)
+
+        UserP.func_S()
     }
 
     UserP.func_S()
@@ -117,7 +117,6 @@ export function calcGlobal() {
             }
             if (data == 'save') {
                 UserP.func_tableSaveLocal(t)
-                noticBuild(ADMIN.notic.save)
             }
             if (data == 'info') {
                 UserP.func_tableSaveInfo(t, '.tableText')
@@ -162,6 +161,11 @@ export function calcGlobal() {
         // Клик удалить сохраненный заказ
         if (t.className == 'catalog_3') {
             UserP.func_tableStorageRemove(t)
+        }
+
+        // Клик удалить User из firebase
+        if (t.className == 'userTableRemove') {
+            UserP.func_userTableRemove(t)
         }
     })
 

@@ -1,6 +1,6 @@
 import { selectVal, storageOut, trBuild } from '../function'
 import { ADMIN } from '../admin'
-import { firebaseSave, firebaseRemove } from '../firebase'
+import { firebaseSave, firebaseRemove, userTableRemove } from '../firebase'
 
 export class UserPrice {
     constructor() {
@@ -59,7 +59,7 @@ export class UserPrice {
 
         if (isNaN(w * h) || isNaN(c)) return
 
-        this.$deck_2.innerText = izm.toFixed(1)
+        this.$deck_2.innerText = MyToFixed(izm)
 
         if (cU == 0 || isNaN(cU)) {
             cU = 0
@@ -69,15 +69,18 @@ export class UserPrice {
         this.$deck_3.dataset.c = (izm * c).toFixed()
         this.$deck_3.dataset.cU = (izmU * cU).toFixed()
 
-        this.$deck_3.dataset.izm = izm.toFixed(1)
-        this.$deck_3.dataset.izmU = izmU.toFixed(1)
+        this.$deck_3.dataset.izm = MyToFixed(izm)
+        this.$deck_3.dataset.izmU = MyToFixed(izmU)
 
         if (i) this.$deck_2_2.innerText = i
+
+        function MyToFixed(num) {
+            return Number.isInteger(num) ? num : num.toFixed(1)
+        }
     }
 
     func_Table() {
-        let num = 1,
-            text_1 = selectVal(this.$select_1)[2],
+        let text_1 = selectVal(this.$select_1)[2],
             text_2 = this.$label_2.textContent,
             options_1 = selectVal(this.$options_1)[2],
             options_2 = selectVal(this.$options_2)[2],
@@ -86,21 +89,26 @@ export class UserPrice {
             p_1 = this.$deck_3.dataset.c,
             p_2 = this.$deck_3.dataset.cU,
             izm = this.$deck_3.dataset.izm,
-            izmU = this.$deck_3.dataset.izmU
+            izmU = this.$deck_3.dataset.izmU,
+            html_w = ` x ${this.$w.value / 1000}`,
+            html =
+                this.$w.disabled === true || this.$duble.checked
+                    ? ''
+                    : ` <i>${this.$h.value / 1000 + html_w}</i>`
 
         if (p_1 != 0) {
-            this.func_TableBuild(num, text_1, options_1, izm, i, p_1)
+            this.func_TableBuild(text_1 + html, options_1, izm, i, p_1)
         }
 
         if (p_2 != 0) {
-            this.func_TableBuild(num, text_2, options_2, izmU, iU, p_2)
+            this.func_TableBuild(text_2 + html, options_2, izmU, iU, p_2)
         }
 
         this.func_tableSummBuild('deck_4')
         this.func_tableSummBuild('tableSumm')
     }
 
-    func_TableBuild(num, text, option, s, i, p) {
+    func_TableBuild(text, option, s, i, p) {
         const tr = document.querySelectorAll('.tableRow')
         let flag = true,
             count = 1
@@ -109,14 +117,14 @@ export class UserPrice {
         if (tr.length) {
             this.$table.innerHTML = ''
 
-            this.arr.forEach((el) => {
+            this.arr.forEach((el, i) => {
                 if (
-                    el.text == text &&
+                    el.text === text &&
                     el.option == option &&
                     this.$duble.checked &&
                     flag
                 ) {
-                    el.num = num
+                    el.num = i
                     el.text = text
                     el.option = option
                     el.s = Number(el.s) + Number(s)
@@ -152,6 +160,8 @@ export class UserPrice {
         let num = el.dataset.num - 1
 
         delete this.arr.splice(num, 1)
+
+        trBuild(this.arr, 'table')
 
         this.func_tableSummBuild('deck_4')
         this.func_tableSummBuild('tableSumm')
@@ -265,7 +275,10 @@ export class UserPrice {
 
     // Клик сохраненные заказы, построение таблицы
     func_tableStorageBuild(t) {
-        const key = t.textContent.replace(/ /g, '_'),
+        const key = t.textContent
+                .replace(/[^a-zа-яё0-9 ]/gi, '_')
+                .trim()
+                .replace(/ /g, '_'),
             arrZakaz = storageOut(ADMIN.KEY[2]),
             arrCatalog = storageOut(ADMIN.KEY[1])[key]
 
@@ -291,5 +304,14 @@ export class UserPrice {
 
         // удаление сохраненного заказа - firebase
         firebaseRemove(val)
+    }
+
+    // Клик удалить User из firebase
+    func_userTableRemove(t) {
+        const isAdmin = confirm('Для удаления нажмите ОК')
+
+        if (isAdmin) {
+            userTableRemove(t)
+        }
     }
 }

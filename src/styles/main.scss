@@ -674,6 +674,11 @@ h3 > span {
     transition: 0.2s;
 }
 
+.notic__block.error {
+    background: #fef4f6;
+    color: #f0506e;
+}
+
 .notic__block.open {
     margin-top: 0;
     opacity: 1;

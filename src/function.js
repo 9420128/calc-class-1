@@ -1,5 +1,3 @@
-import { ADMIN } from './admin'
-
 export function selectVal(el) {
     let thisElem = el.options,
         n = thisElem.selectedIndex,
@@ -139,11 +137,15 @@ export function trBuild(arr, el) {
     $element.insertAdjacentHTML('beforeend', html)
 }
 
-export function noticBuild(message) {
+export function noticBuild(message, tip = null) {
     const $noticBlock = document.querySelector('.notic__block'),
-        $noticText = document.querySelector('.notic__text')
+        $noticText = document.querySelector('.notic__text'),
+        $noticBlockError = document.querySelector('.notic__block.error')
+
+    if (!tip && $noticBlockError) $noticBlock.classList.remove('error')
+    if (tip === 'error' && !$noticBlockError) $noticBlock.classList.add('error')
 
     $noticBlock.classList.add('open')
     $noticText.textContent = message
-    setTimeout(() => $noticBlock.classList.remove('open'), 3000)
+    setTimeout(() => $noticBlock.classList.remove('open'), 4000)
 }

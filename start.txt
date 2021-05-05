@@ -12,6 +12,8 @@ firebase login
 
 npm i firebase
 
+npm install firebase-admin --save
+
 https://ru.parceljs.org/
 
 https://www.youtube.com/watch?v=0ViiJ8qTCFM&t=5943s
@@ -34,6 +36,9 @@ el.firstElementChild
 el.lastElementChild – соответственно, первый и последний дети-элементы.
 el.previousElementSibling, nextElementSibling – соседи-элементы.
 el.parentElement – родитель-элемент.
+
+el.innerHTML = html
+    table.innerHTML = el.outerHTML
 
 isNaN(el)
 
@@ -89,6 +94,8 @@ str.split('-') // разбирает строку в массив
 str.join(' ') // убирает символы межу словами
 
 str.replace(/ /g, '_') // замена пробела символом
+str.replace(/[^a-zа-яё0-9 ]/gi, '_').trim()
+
 
 length
 
@@ -105,3 +112,25 @@ return user ? user.uid : null
  const ref = await firebase.database().ref(`users/${uid}/info/catalog`)
         ref.on('value', (snapshot) => {
             const data = snapshot.val()
+
+
+{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null"
+  }
+}
+
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    }
+  }
+}
+
+".read": "auth.uid === 'vfDclvhbAza9XJKEWxueB5oUPV83'",
+    ".write": "auth.uid === 'vfDclvhbAza9XJKEWxueB5oUPV83'"

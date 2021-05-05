@@ -9,7 +9,7 @@ export default `
     <form id="formModal" class="body">
         <div class="col">
             <label for="form-modal__email">Email</label>
-            <input class="input" type="text" id="form-modal__email" />
+            <input class="input" type="email" id="form-modal__email" required/>
         </div>
         <div class="col">
             <label for="form-modal__password">Пароль</label>
@@ -17,6 +17,8 @@ export default `
                 class="input"
                 type="password"
                 id="form-modal__password"
+                placeholder="Минимум 6 символов"
+                required
             />
         </div>
         <div style="display: flex; justify-content: space-between;">

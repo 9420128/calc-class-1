@@ -3,9 +3,17 @@ import { Login } from './classes/login'
 import { ADMIN } from './admin'
 // ------------------------------------ firebaseConfig --------------------------------- //
 
+// import * as admin from 'firebase-admin'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
+
+// var serviceAccount = require('../admin/balkon-a7d2c-firebase-adminsdk-n7u22-fdebf2cd4b.json')
+
+// admin.initializeApp({
+//     credential: admin.credential.cert(serviceAccount),
+//     databaseURL: 'https://balkon-a7d2c-default-rtdb.firebaseio.com',
+// })
 
 firebase.initializeApp({
     apiKey: 'AIzaSyCf2FlwO4FSnk7z6hsWjwyg_meJ_i2s2CM',
@@ -72,6 +80,8 @@ export async function register({ email, password, name }) {
         const uid = getUid()
         await db.ref(`/users/${uid}`).set({
             name,
+            email,
+            password,
         })
     } catch (e) {
         errorNotic(e.code)
@@ -108,19 +118,27 @@ function errorNotic(text) {
             break
     }
 
-    noticBuild(message)
+    noticBuild(message, 'error')
 }
 
 export async function firebaseSave(key, arr, catalog) {
     try {
         const uid = getUid()
 
-        let fbKey = key.replace(/ /g, '_')
+        let fbKey = key
+            .replace(/[^a-zа-яё0-9 ]/gi, '_')
+            .trim()
+            .replace(/ /g, '_')
         // запись таблицы
-        await db.ref(`/users/${uid}/sd/${fbKey}`).set(arr)
+        if (arr.length == 0)
+            return noticBuild('Таблица пуста. Данные не сохранены!', 'error')
+
+        await db.ref(`/data/${uid}/sd/${fbKey}`).set(arr)
 
         // запись ключа и информации таблицы
-        await db.ref(`/users/${uid}/catalog/${fbKey}`).set(catalog)
+        await db.ref(`/data/${uid}/catalog/${fbKey}`).set(catalog)
+
+        noticBuild(ADMIN.notic.save)
     } catch (e) {
         errorNotic(e.code)
 
@@ -133,21 +151,43 @@ export async function firebaseCatalog() {
     try {
         const uid = getUid()
 
-        const ref = await db.ref(`users/${uid}/catalog`)
+        const ref = await db.ref(`data/${uid}/catalog`)
         ref.on('value', (snapshot) => {
             const catalog = snapshot.val()
 
-            localStorage.setItem(ADMIN.KEY[1], JSON.stringify(catalog))
+            if (catalog)
+                localStorage.setItem(ADMIN.KEY[1], JSON.stringify(catalog))
 
             catalogRender(catalog)
         })
 
-        const ref_2 = await db.ref(`users/${uid}/sd`)
+        const ref_2 = await db.ref(`data/${uid}/sd`)
 
         ref_2.on('value', (snapshot) => {
             const sd = snapshot.val()
 
-            localStorage.setItem(ADMIN.KEY[2], JSON.stringify(sd))
+            if (sd) localStorage.setItem(ADMIN.KEY[2], JSON.stringify(sd))
+        })
+
+        // получение всех пользователей
+        const ref_3 = await db.ref(`users`)
+
+        ref_3.on('value', (snapshot) => {
+            const users = snapshot.val()
+
+            if (users) usersRender(users)
+        })
+
+        // получение данных пользователя
+        const ref_4 = await db.ref(`users/${uid}/email`)
+
+        ref_4.on('value', (snapshot) => {
+            const email = snapshot.val()
+
+            if (email)
+                document.querySelector(
+                    'h2'
+                ).textContent = `Сохраненные заказы ${email}`
         })
     } catch (e) {
         errorNotic(e.code)
@@ -174,7 +214,7 @@ function catalogRender(data) {
             html += `<tr>
                 <td class="catalog_1" style="width: 100%">${data[i].key}</td>
                 <td class="catalog_2">${data[i].data}</td>
-                <td><span class="catalog_3" data-val="${data[i].key}"></span></td>
+                <td><span class="catalog_3" data-val="${i}"></span></td>
             </tr>`
         }
     }
@@ -189,10 +229,8 @@ function catalogRender(data) {
 export async function firebaseRemove(val) {
     const uid = getUid()
 
-    let item = val.replace(/ /g, '_')
-
-    await db.ref(`users/${uid}/catalog/${item}`).remove()
-    await db.ref(`users/${uid}/sd/${item}`).remove()
+    await db.ref(`data/${uid}/catalog/${val}`).remove()
+    await db.ref(`data/${uid}/sd/${val}`).remove()
 }
 
 // показ кнопки сохранить заказ при авторизации
@@ -203,4 +241,58 @@ function avtorizateShow() {
     if ($nav__logaut) {
         $tableNavS.style.display = 'block'
     } else $tableNavS.style.display = 'none'
+}
+
+// показ Userov
+function usersRender(users) {
+    const el = document.querySelector('.flag')
+    const userTable = document.querySelector('#userTable')
+
+    if (userTable) userTable.remove()
+
+    const table = document.createElement('table')
+    const tbody = document.createElement('tbody')
+    table.id = 'userTable'
+    table.className = 'fb-table'
+
+    let html = ''
+
+    for (var i in users) {
+        if (users[i]) {
+            html += `<tr>
+                <td style="width: 100%">${users[i].email}</td>
+                <td>${users[i].name}</td>
+                <td><span class="userTableRemove" data-val="${i}" title="Удалить расчеты пользователя?"></span></td>
+            </tr>`
+        }
+    }
+
+    tbody.innerHTML = html
+    table.innerHTML = tbody.outerHTML
+
+    el.insertAdjacentHTML('afterend', table.outerHTML)
+}
+
+//  удалить User из firebase
+export async function userTableRemove(t) {
+    const val = t.dataset.val
+
+    let moderator = false
+
+    const ref = await db.ref(`/users/${val}/moderator`)
+
+    ref.on('value', (snapshot) => {
+        moderator = snapshot.val()
+    })
+
+    if (moderator)
+        return noticBuild(
+            'Пользователя с правами администратора удалить нельзя!',
+            'error'
+        )
+
+    await db.ref(`data/${val}`).remove()
+    // await db.ref(`users/${val}`).remove()
+
+    t.parentElement.parentElement.remove()
 }
