@@ -65,9 +65,12 @@ export function time(el) {
 
 export function tableModal(el, data) {
     // data = table, save, info
+    const $deck_7 = document.getElementById('deck_7')
     let type = el.dataset.type ? el.dataset.type : 'text'
 
     let text = data != 'save' ? el.textContent : ''
+    if ($deck_7.textContent && data == 'save') text = $deck_7.textContent
+
     let html = `<form class="tableEdit fb-modal">
                         <div class="fb-modal__row">
                             <input class="tableText" type="${type}" value="${text}" onfocus="this.select()">
@@ -138,14 +141,33 @@ export function trBuild(arr, el) {
 }
 
 export function noticBuild(message, tip = null) {
-    const $noticBlock = document.querySelector('.notic__block'),
-        $noticText = document.querySelector('.notic__text'),
-        $noticBlockError = document.querySelector('.notic__block.error')
+    let timer = 3000
 
-    if (!tip && $noticBlockError) $noticBlock.classList.remove('error')
-    if (tip === 'error' && !$noticBlockError) $noticBlock.classList.add('error')
+    let notic = document.createElement('div')
+    notic.className = 'notic'
 
-    $noticBlock.classList.add('open')
-    $noticText.textContent = message
-    setTimeout(() => $noticBlock.classList.remove('open'), 4000)
+    let noticBlock = document.createElement('div')
+
+    if (tip === 'error') noticBlock.className = 'notic__block error open'
+    else noticBlock.className = 'notic__block open'
+
+    noticBlock.append(message)
+    notic.append(noticBlock)
+
+    let $notic = document.querySelector('.notic')
+    if (!$notic) {
+        document.body.append(notic)
+    }
+
+    let $noticDom = document.querySelector('.notic')
+    $noticDom.append(noticBlock)
+    setTimeout(noticRemove, timer, noticBlock)
+
+    function noticRemove(noticBlock) {
+        noticBlock.remove()
+        let $notic = document.querySelector('.notic')
+        if (!$notic.firstElementChild) $notic.remove()
+    }
 }
+
+export function zakazHtmlCol(params) {}

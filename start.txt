@@ -20,6 +20,9 @@ https://www.youtube.com/watch?v=0ViiJ8qTCFM&t=5943s
 
 document.querySelector('#d')
 document.getElementById('d')
+document.createElement('div')
+el.style.width = '100%'
+el.style.height = '400px'
 
 el.textContent
 el.innerHTML

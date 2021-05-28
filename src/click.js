@@ -167,6 +167,12 @@ export function calcGlobal() {
         if (t.className == 'userTableRemove') {
             UserP.func_userTableRemove(t)
         }
+
+        // Клик развернуть / скрыть каталог
+        if (t.className == 'badg') {
+            const $catalog = document.querySelector('.catalog')
+            $catalog.classList.toggle('hidden')
+        }
     })
 
     $select_1.onchange = () => {

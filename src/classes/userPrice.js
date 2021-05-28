@@ -75,7 +75,7 @@ export class UserPrice {
         if (i) this.$deck_2_2.innerText = i
 
         function MyToFixed(num) {
-            return Number.isInteger(num) ? num : num.toFixed(1)
+            return Number.isSafeInteger(num) ? num : num.toFixed(1)
         }
     }
 
@@ -257,6 +257,7 @@ export class UserPrice {
     // Сохранение
     func_tableSaveLocal(el) {
         const val = document.querySelector('.tableText').value
+        document.querySelector('title').textContent = val
 
         if (!val) return
 

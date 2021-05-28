@@ -204,8 +204,14 @@ function getUid() {
 // построение таблицы сохраненных заказов
 function catalogRender(data) {
     const $element = document.querySelector('#catalog')
+    const $h2 = document.querySelector('h2')
+    const $badg = $h2.querySelector('.badg')
     const $flag = document.querySelector('.flag')
+    const $catalog = document.querySelector('.catalog')
 
+    if ($badg) $badg.remove()
+
+    let kol = 0
     let html = ''
     $element.innerHTML = ''
 
@@ -216,6 +222,8 @@ function catalogRender(data) {
                 <td class="catalog_2">${data[i].data}</td>
                 <td><span class="catalog_3" data-val="${i}"></span></td>
             </tr>`
+
+            kol = kol + 1
         }
     }
 
@@ -223,6 +231,12 @@ function catalogRender(data) {
     else $flag.classList.remove('hidden')
 
     $element.insertAdjacentHTML('beforeend', html)
+
+    let spanCol = document.createElement('span')
+    spanCol.className = 'badg'
+    spanCol.textContent = kol
+    $h2.append(spanCol)
+    if (kol > 3) $catalog.classList.add('hidden')
 }
 
 // удаление сохраненного заказа

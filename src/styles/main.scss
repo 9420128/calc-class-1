@@ -140,8 +140,21 @@ h1 {
         margin: 0;
         font-size: 1rem;
         padding-left: 0.8rem;
+        padding-right: 2em;
         padding-bottom: 5px;
         margin-top: 1em;
+        position: relative;
+
+        .badg {
+            position: absolute;
+            padding: 0 8px;
+            background-color: $bg_1;
+            right: 0;
+            bottom: 6px;
+            color: white;
+            border-radius: 2px;
+            cursor: pointer;
+        }
     }
 }
 
@@ -658,13 +671,13 @@ h3 > span {
     width: 370px;
     margin-left: -135px;
     z-index: 2;
-    top: 10px;
+    top: 1.4em;
     box-sizing: border-box;
 }
 
 .notic__block {
     margin-top: -50px;
-    opacity: 0;
+    opacity: 1;
     position: relative;
     padding: 1em;
     background-color: rgba(13, 37, 255, 0.822);
@@ -672,6 +685,8 @@ h3 > span {
     border-radius: $radius;
     display: block;
     transition: 0.2s;
+    margin-top: 0;
+    margin-bottom: 1em;
 }
 
 .notic__block.error {
@@ -679,10 +694,10 @@ h3 > span {
     color: #f0506e;
 }
 
-.notic__block.open {
-    margin-top: 0;
-    opacity: 1;
-}
+// .notic__block.open {
+//     margin-top: 0;
+//     opacity: 1;
+// }
 
 .notic__icon {
     position: absolute;
